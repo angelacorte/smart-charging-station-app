@@ -64,7 +64,7 @@
 
 <h3>Charging Stations near your position</h3>
 <div
-    id="app"
+    id="map"
     bind:this={mapContainer}
     style="height:600px;width:600px">
 </div>
