@@ -17,6 +17,7 @@
     "svelte": "^4.0.5",
     "svelte-check": "^3.4.6",
     "svelte-geolocation": "^0.3.0",
+    "svelte-qr-scanner": "^1.1.0",
     "tslib": "^2.6.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
