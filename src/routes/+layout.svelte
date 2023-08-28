@@ -2,7 +2,7 @@
     import '../app.css'
 </script>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-dark sticky-top d-flex justify-content-between">
     <div class="container">
         <a class="navbar-brand" href="/">Smart Charging Stations</a>
         <!--<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
