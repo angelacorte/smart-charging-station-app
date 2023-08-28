@@ -32,7 +32,8 @@
 
     function onScanSuccess(decodedText, decodedResult) {
         alert(`Code matched = ${decodedText}`)
-        console.log(decodedResult)
+        stop()
+        window.location.assign(`/charging/${decodedText}`);
     }
 
     function onScanFailure(error) {
