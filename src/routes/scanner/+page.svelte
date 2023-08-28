@@ -55,8 +55,8 @@
         gap: 20px;
     }
     reader {
-        width: 100%;
-        min-height: 500px;
+        width: 90%;
+        min-height: 400px;
         background-color: black;
     }
 </style>
