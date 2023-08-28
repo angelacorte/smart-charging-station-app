@@ -7,10 +7,10 @@
 </script>
 
 
-<h3>Charging Stations near your position</h3>
+<h1>Charging Stations near your position</h1>
 
 <main>
-    <button on:click={() => (Map.getPosition = true)}> Get actual location </button>
+    <button on:click={() => (Map.getPosition = true)}> Get actual position </button>
     <Geolocation
             getPosition={Map.getPosition}
             bind:coords
