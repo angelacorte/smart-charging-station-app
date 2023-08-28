@@ -31,9 +31,13 @@
     }
 
     function onScanSuccess(decodedText, decodedResult) {
-        alert(`Code matched = ${decodedText}`)
-        stop()
-        window.location.assign(`/charging/${decodedText}`);
+        const shouldNavigate = confirm(`Code matched = ${decodedText}. Do you want to navigate to charging page?`);
+        if (shouldNavigate) {
+            stop();
+            window.location.assign(`/charging/${decodedText}`);
+        }else{
+            window.location.assign(`/`);
+        }
     }
 
     function onScanFailure(error) {
