@@ -1,10 +1,9 @@
 <script>
-    import { onMount } from 'svelte';
+    import {onMount} from 'svelte';
     import * as L from 'leaflet';
     import 'leaflet/dist/leaflet.css';
-    import { stations, ChargingStationStatus } from '../Stations.svelte';
-    import { redMarker, blueMarker, orangeMarker, greenMarker } from '../Markers.svelte';
-
+    import { stations } from '../Stations.svelte';
+    import {createMarker} from "../Markers.svelte"
     export let getPosition = false;
     export let mapContainer;
     export let coords;
@@ -24,28 +23,12 @@
         ).addTo(m);
         L.marker([coords[1], coords[0]])
             .addTo(m)
-            .bindPopup('you are here')
+            .bindPopup('You are here.')
             .openPopup();
 
         stations.forEach(station => {
-            let icon
-            switch(station.status) {
-                case ChargingStationStatus.FREE:
-                    icon = greenMarker;
-                    break;
-                case ChargingStationStatus.CHARGING:
-                    icon = orangeMarker;
-                    break;
-                case ChargingStationStatus.RESERVED:
-                    icon = blueMarker;
-                    break;
-                case ChargingStationStatus.UNAVAILABLE:
-                    icon = redMarker;
-                    break;
-            }
-            L.marker(station.location, {icon: icon}).addTo(m).bindPopup(station.provider + " " + station.name + "\nStatus is " + station.status);
+            createMarker(station).addTo(m)
         })
-
         return m;
     }
 
