@@ -1,0 +1,1 @@
+<h1>Welcome to Smart Charging Stations!</h1>
