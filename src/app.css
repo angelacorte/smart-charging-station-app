@@ -30,7 +30,18 @@
   }
 }
 
+.btn{
+  background: #001635;
+  color: #FFFFFF;
+  border-color: #001635;
+  border-radius: 10px;
+  padding: 4px;
+}
 
+.btn:hover{
+  color: #FFFFFF;
+  background: #397367;
+}
 
 a {
   font-weight: 500;
@@ -38,8 +49,19 @@ a {
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #397367;
 }
+
+
+.navbar{
+  position: sticky;
+  /*display: block;*/
+  background: #001635; /*007f6f*/
+  color: #FFFFFF;
+  text-decoration: none;
+  padding: 10px;
+}
+
 /*
 body {
   margin: 0;
