@@ -2,10 +2,10 @@
 
     import * as L from 'leaflet';
     import 'leaflet/dist/leaflet.css';
-    import redIcon from '../../static/red-icon.png';
-    import orangeIcon from '../../static/orange-icon.png';
-    import blueIcon from '../../static/blue-icon.png';
-    import greenIcon from '../../static/green-icon.png';
+    import redIcon from '../static/red-icon.png';
+    import orangeIcon from '../static/orange-icon.png';
+    import blueIcon from '../static/blue-icon.png';
+    import greenIcon from '../static/green-icon.png';
 
     export let redMarker = L.icon({
         iconUrl: redIcon,
