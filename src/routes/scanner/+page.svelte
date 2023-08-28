@@ -61,6 +61,8 @@
     }
 </style>
 
+<h1>QR code scanning</h1>
+
 <main>
     <reader id="reader"/>
     {#if scanning}
