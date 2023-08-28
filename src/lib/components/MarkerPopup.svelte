@@ -3,7 +3,6 @@
 
     export let station;
     let address = ""
-    const API_KEY = "AIzaSyDCXOG2GJZJYPPhGPwWTvpC6rM97XgJ_5A"
 
     onMount(() => {
         // Qui puoi chiamare la funzione per tradurre le coordinate in indirizzo
