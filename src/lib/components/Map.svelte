@@ -2,9 +2,11 @@
     import { onMount } from 'svelte';
     import * as L from 'leaflet';
     import 'leaflet/dist/leaflet.css';
-    import { stations, ChargingStationStatus } from './Stations.svelte';
-    import { redMarker, blueMarker, orangeMarker, greenMarker } from './Markers.svelte';
+    import { stations, ChargingStationStatus } from '../Stations.svelte';
+    import { redMarker, blueMarker, orangeMarker, greenMarker } from '../Markers.svelte';
 
+    export let getPosition = false;
+    export let mapContainer;
     export let coords;
 
     let map;
@@ -47,24 +49,21 @@
         return m;
     }
 
-    let mapContainer;
-
     onMount(() => {
         map = createMap(mapContainer);
     });
 
-    function resizeMap() {
+    export function resizeMap() {
         if (map) {
             map.invalidateSize();
         }
     }
 </script>
 
-<svelte:window on:resize={resizeMap} />
 
-<h3>Charging Stations near your position</h3>
+<svelte:window on:resize={resizeMap} />
 <div
-    id="map"
-    bind:this={mapContainer}
-    style="height:600px;width:600px">
+        id="map"
+        bind:this={mapContainer}
+        style="height:600px;width:600px">
 </div>
