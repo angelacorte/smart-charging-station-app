@@ -38,7 +38,7 @@
 
     export function createMarker(station) {
         let icon
-        switch(station.status) {
+        switch(station.state) {
             case ChargingStationStatus.FREE:
                 icon = greenMarker;
                 break;
@@ -52,7 +52,7 @@
                 icon = redMarker;
                 break;
         }
-        let marker = L.marker(station.location, {icon: icon})
+        let marker = L.marker(station.position, {icon: icon})
         bindPopup(marker, (m) => {
             let c = new MarkerPopup({
                 target: m,
