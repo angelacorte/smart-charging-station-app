@@ -1,9 +1,12 @@
 <script>
     import { page } from '$app/stores';
+    import {charge} from "$lib/stores.ts";
 
-    let id = $page.params.id;
+    export let id = $page.params.id;
 
     function startCharging() {
+        //localhost:8080 /get/chargingstation/:id
+        charge(id)
         console.log(`send request for charging car at the station with id ` + id);
     }
 </script>
