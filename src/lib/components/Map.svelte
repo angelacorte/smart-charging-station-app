@@ -2,11 +2,14 @@
     import {onMount} from 'svelte';
     import * as L from 'leaflet';
     import 'leaflet/dist/leaflet.css';
-    import { stations } from '../Stations.svelte';
+    // import { stations } from '../Stations.svelte';
     import {createMarker} from "../Markers.svelte"
+    import {fetchStations} from "$lib/stores.ts";
     export let getPosition = false;
     export let mapContainer;
     export let coords;
+
+    let stations
 
     let map;
 
@@ -33,6 +36,7 @@
     }
 
     onMount(() => {
+        stations = fetchStations()
         map = createMap(mapContainer);
     });
 
