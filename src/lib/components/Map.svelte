@@ -4,7 +4,7 @@
     import 'leaflet/dist/leaflet.css';
     // import { stations } from '../Stations.svelte';
     import {createMarker} from "../Markers.svelte"
-    import {fetchStations} from "$lib/stores.ts";
+    import {fetchStations, Stations} from "$lib/stores.ts";
     export let getPosition = false;
     export let mapContainer;
     export let coords;
@@ -29,14 +29,17 @@
             .bindPopup('You are here.')
             .openPopup();
 
-        stations.forEach(station => {
-            createMarker(station).addTo(m)
+        $Stations.forEach(s => {
+            createMarker(s).addTo(m)
         })
+        /*stations.forEach(station => {
+            createMarker(station).addTo(m)
+        })*/
         return m;
     }
 
-    onMount(() => {
-        stations = fetchStations()
+    onMount(async () => {
+        await fetchStations()
         map = createMap(mapContainer);
     });
 
