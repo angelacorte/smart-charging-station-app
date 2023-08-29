@@ -1,17 +1,18 @@
 import {writable} from 'svelte/store'
 
-const SERVER_URL = 'http://localhost/8080';
+const SERVER_URL = 'http://localhost:8080';
 export const Stations = writable([])
 export async function charge(id: number){
     const res = await fetch(SERVER_URL + `/charge/:${id}`)
     const data = await res.json()
-    const newStations = data.map((d: { _id: number, _name: string, _provider: string, _state: any, _location: [number, number] }) => {
+    const newStations = data.map((d: { id: number, name: string, position: {latitude: number, longitude: number}, provider: string, state: string, voltage: number }) => {
         return {
-            id: d._id,
-            name: d._name,
-            provider: d._provider,
-            state: d._state,
-            location: d._location,
+            id: d.id,
+            name: d.name,
+            position: [d.position.latitude , d.position.longitude],
+            provider: d.provider,
+            state: d.state,
+            voltage: d.voltage,
         }
     })
     Stations.set(newStations)
@@ -20,33 +21,34 @@ export async function charge(id: number){
 export async function fetchStations(){
     const res = await fetch(SERVER_URL + `/chargingstations`)
     const data = await res.json()
-    const newStations = data.map((d: { _id: number, _name: string, _position: {_latitude: number, _longitude: number}, _provider: string, _state: string, _voltage: number }) => {
+    const newStations = data.map((d: { id: number, name: string, position: {latitude: number, longitude: number}, provider: string, state: string, voltage: number }) => {
         return {
-            id: d._id,
-            name: d._name,
-            position: [d._position._latitude , d._position._longitude],
-            provider: d._provider,
-            state: d._state,
-            voltage: d._voltage,
+            id: d.id,
+            name: d.name,
+            position: [d.position.latitude , d.position.longitude],
+            provider: d.provider,
+            state: d.state,
+            voltage: d.voltage,
         }
     })
     Stations.set(newStations)
 }
 
-/*export async function reserve(id: number){
+export async function reserve(id: number){
     const res = await fetch(SERVER_URL + `/reserve/:${id}`)
     const data = await res.json()
-    const newStations = data.map((d: { _id: number, _state: any, _location: [number, number] }) => {
+    const newStations = data.map((d: { id: number, name: string, position: {latitude: number, longitude: number}, provider: string, state: string, voltage: number }) => {
         return {
-            id: d._id,
-            name: d._name,
-            provider: d._provider,
-            state: d._state,
-            location: d._location,
+            id: d.id,
+            name: d.name,
+            position: [d.position.latitude , d.position.longitude],
+            provider: d.provider,
+            state: d.state,
+            voltage: d.voltage,
         }
     })
     Stations.set(newStations)
-}*/
+}
 
 export const ChargingStationStatus = {
     FREE: "FREE",
