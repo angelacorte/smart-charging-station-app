@@ -5,18 +5,14 @@
     let address = ""
 
     onMount(() => {
-        // Qui puoi chiamare la funzione per tradurre le coordinate in indirizzo
         translateCoordinatesToAddress();
     });
     async function translateCoordinatesToAddress() {
         try {
-            let coords = station.location
             const response = await fetch(
-                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${coords[0]}&lon=${coords[1]}`
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${station.position[0]}&lon=${station.position[1]}`
             );
             const data = await response.json();
-            console.log(data)
-            // Estrai l'indirizzo dalla risposta
             if (data.display_name) {
                 address = data.address.road + " " + data.address.house_number + " " + data.address.town;
             }
@@ -28,12 +24,12 @@
 
 <div style="width:100%;text-align:center;font-weight:600">
     <p>{station.provider} {station.name}</p>
-    <p>Status is {station.status}</p>
+    <p>Status is {station.state}</p>
     <p>Address is "{address}"</p>
     <br/>
-    {#if station.status === "FREE"}
+    {#if station.state === "FREE"}
         <div>
-            <a class="btn p-" href="reserve/{station.id}">Reserve this charging station.</a>
+            <a class="btn p-" href="reserve/{station.id}">Reserve</a>
        </div>
     {/if}
 </div>
