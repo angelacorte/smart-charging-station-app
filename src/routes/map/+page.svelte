@@ -1,11 +1,20 @@
 <script>
     import Geolocation from "svelte-geolocation";
     import Map from "../../lib/components/Map.svelte";
+    import {onMount} from "svelte";
 
-    // let getPosition = false;
     let coords = [];
-</script>
+    async function load({session}) {
+        let user = JSON.parse(window.localStorage.getItem("user"))
+        if (!user) {
+            window.location.assign('/unauthorized')
+        }
+    }
 
+    onMount(async () => {
+        await load({});
+    });
+</script>
 
 <h1>Charging Stations near your position</h1>
 
