@@ -6,7 +6,24 @@
 
     let html5Qrcode
 
-    onMount(init)
+    async function load({session}) {
+        let user = JSON.parse(window.localStorage.getItem("user"))
+        if (!user) {
+            window.location.assign('/unauthorized')
+        }
+        return {
+            props: {
+                ok: true
+            }
+        }
+    }
+
+    onMount(async () => {
+        const {props} = await load({});
+        if(props.ok){
+            init()
+        }
+    });
 
     function init() {
         html5Qrcode = new Html5Qrcode('reader')
