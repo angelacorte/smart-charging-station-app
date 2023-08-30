@@ -15,7 +15,7 @@
 
         // POST method to src/routes/auth/login.js endpoint
         try {
-            const res = await fetch('/auth/login', {
+            let result = (await fetch('http://localhost:5050/auth/login', {
                 method: 'POST',
                 body: JSON.stringify({
                     email,
@@ -24,10 +24,14 @@
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            });
-
-            if (res.ok) {
+            }))
+            let json = await result.json()
+            if (result.ok) {
                 dispatch('success');
+                window.localStorage.setItem("email", json.user.email)
+                window.localStorage.setItem("accessToken", json.accessToken)
+                window.localStorage.setItem("refreshToken", json.refreshToken)
+                window.localStorage.setItem("user", JSON.stringify(json.user))
             } else {
                 error = 'An error occured';
             }
