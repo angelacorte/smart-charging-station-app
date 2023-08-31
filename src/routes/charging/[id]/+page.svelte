@@ -8,7 +8,7 @@
         let user = JSON.parse(window.localStorage.getItem("user"))
         charge({
             userId: user._id,
-            chargingStationId: id
+            chargingStationId: parseInt(id)
         })
     }
 </script>

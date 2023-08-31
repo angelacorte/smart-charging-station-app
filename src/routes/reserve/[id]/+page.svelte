@@ -9,7 +9,7 @@
         let user = JSON.parse(window.localStorage.getItem("user"))
         reserve({
             userId: user._id,
-            chargingStationId: id
+            chargingStationId: parseInt(id)
         })
     }
 </script>
