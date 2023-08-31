@@ -6,8 +6,8 @@
 
     function startCharging() {
         //localhost:8080 /get/chargingstation/:id
-        charge(id)
         console.log(`send request for charging car at the station with id ` + id);
+        charge(id)
     }
 </script>
 
@@ -17,7 +17,7 @@
 
 {#if id !== undefined}
     <p>Do you want to start charging your car at this charging station?</p>
-    <button on:click={startCharging}>Yes</button>
+    <button class="btn" on:click={startCharging}>Yes</button>
 {:else}
     <p>Charging station not found</p>
 {/if}
