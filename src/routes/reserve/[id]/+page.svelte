@@ -6,8 +6,11 @@
     let id = $page.params.id;
 
     function askReserve() {
-        console.log(`send request for reserving the station with id ` + id);
-        reserve(id)
+        let user = JSON.parse(window.localStorage.getItem("user"))
+        reserve({
+            userId: user._id,
+            chargingStationId: id
+        })
     }
 </script>
 

@@ -1,13 +1,15 @@
 <script>
     import { page } from '$app/stores';
-    import {charge} from "$lib/stores.ts";
+    import {charge, reserve} from "$lib/stores.ts";
 
     export let id = $page.params.id;
 
     function startCharging() {
-        //localhost:8080 /get/chargingstation/:id
-        console.log(`send request for charging car at the station with id ` + id);
-        charge(id)
+        let user = JSON.parse(window.localStorage.getItem("user"))
+        charge({
+            userId: user._id,
+            chargingStationId: id
+        })
     }
 </script>
 
