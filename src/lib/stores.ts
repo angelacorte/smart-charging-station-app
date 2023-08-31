@@ -3,19 +3,21 @@ import {writable} from 'svelte/store'
 const SERVER_URL = 'http://localhost:8080';
 export const Stations = writable([])
 export async function charge(requestBody: { userId: string, chargingStationId: number}){
-    const response = await fetch(SERVER_URL + '/charge', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody)
-    });
-
-    if (response.ok) {
-        alert('Charging is available.');
-        window.location.assign("/home")
-    } else {
-        alert('Something went wrong.');
+    try{
+        const response = await fetch(SERVER_URL + '/charge', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody)
+        });
+        alert(await response.text());
+        if (response.ok) {
+            window.location.assign("/home")
+        }
+    }catch (err) {
+        console.log(err);
+        alert('An error occured ' + err)
     }
 }
 
@@ -36,21 +38,21 @@ export async function fetchStations(){
 }
 
 export async function reserve(requestBody: { userId: string, chargingStationId: number}){
-    console.log("req ", requestBody)
-
-    const response = await fetch(SERVER_URL + '/reserve-station', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody)
-    });
-
-    if (response.ok) {
-        alert('Charging station reserved.');
-        window.location.assign("/home")
-    } else {
-        alert('Something went wrong.');
+    try{
+        let response = await fetch(SERVER_URL + '/reserve-station', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody)
+        });
+        alert(await response.text());
+        if (response.ok) {
+            window.location.assign("/home")
+        }
+    }catch (err) {
+        console.log(err);
+        alert('An error occured ' + err)
     }
 }
 
