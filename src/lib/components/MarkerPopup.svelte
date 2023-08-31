@@ -23,7 +23,7 @@
 </script>
 
 <div style="width:100%;text-align:center;font-weight:600">
-    <p>{station.provider} {station.name}</p>
+    <p>{station.provider} {station.name} ({station.voltage} kW)</p>
     <p>Status is {station.state}</p>
     <p>Address is "{address}"</p>
     <br/>
