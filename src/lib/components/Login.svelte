@@ -1,4 +1,5 @@
 <script>
+    import '../app.css'
     import { createEventDispatcher } from 'svelte';
 
     // Dispatcher for future usage in /index.svelte
@@ -7,31 +8,33 @@
     // Variables bound to respective inputs via bind:value
     let email;
     let password;
-    let name;
     let error;
 
-    const register = async () => {
+    const login = async () => {
         // Reset error from previous failed attempts
         error = undefined;
 
+        // POST method to src/routes/auth/login.js endpoint
         try {
-            // POST method to src/routes/auth/register.js endpoint
-            const res = await fetch('http://localhost:5050/auth/register', {
+            let result = (await fetch('http://localhost:5050/auth/login', {
                 method: 'POST',
                 body: JSON.stringify({
                     email,
-                    password,
-                    name
+                    password
                 }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            });
-
-            if (res.ok) {
+            }))
+            let json = await result.json()
+            if (result.ok) {
                 dispatch('success');
+                window.localStorage.setItem("email", json.user.email)
+                window.localStorage.setItem("accessToken", json.accessToken)
+                window.localStorage.setItem("refreshToken", json.refreshToken)
+                window.localStorage.setItem("user", JSON.stringify(json.user))
             } else {
-                error = 'An error occured ';
+                error = 'An error occured';
             }
         } catch (err) {
             console.log(err);
@@ -40,11 +43,10 @@
     };
 </script>
 
-<h1>Register</h1>
-<input type="text" name="name" placeholder="Enter your name" bind:value={name} />
+<h1>Login</h1>
 <input type="email" name="email" placeholder="Enter your email" bind:value={email} />
 <input type="password" name="password" placeholder="Enter your password" bind:value={password} />
 {#if error}
     <p>{error}</p>
 {/if}
-<button on:click={register}>Register</button>
+<button class="btn" on:click={login}>Login</button>

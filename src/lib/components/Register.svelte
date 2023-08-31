@@ -1,4 +1,5 @@
 <script>
+    import '../app.css'
     import { createEventDispatcher } from 'svelte';
 
     // Dispatcher for future usage in /index.svelte
@@ -7,24 +8,27 @@
     // Variables bound to respective inputs via bind:value
     let email;
     let password;
+    let name;
     let error;
 
-    const login = async () => {
+    const register = async () => {
         // Reset error from previous failed attempts
         error = undefined;
 
-        // POST method to src/routes/auth/login.js endpoint
         try {
-            let result = (await fetch('http://localhost:5050/auth/login', {
+            // POST method to src/routes/auth/register.js endpoint
+            const result = await fetch('http://localhost:5050/auth/signup', {
                 method: 'POST',
                 body: JSON.stringify({
                     email,
-                    password
+                    password,
+                    name
                 }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }))
+            });
+
             let json = await result.json()
             if (result.ok) {
                 dispatch('success');
@@ -42,10 +46,11 @@
     };
 </script>
 
-<h1>Login</h1>
+<h1>Register</h1>
+<input type="text" name="name" placeholder="Enter your name" bind:value={name} />
 <input type="email" name="email" placeholder="Enter your email" bind:value={email} />
 <input type="password" name="password" placeholder="Enter your password" bind:value={password} />
 {#if error}
     <p>{error}</p>
 {/if}
-<button on:click={login}>Login</button>
+<button class="btn" on:click={register}>Register</button>
