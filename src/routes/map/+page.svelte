@@ -19,7 +19,7 @@
 <h1>Charging Stations near your position</h1>
 
 <main>
-    <button on:click={() => (Map.getPosition = true)}> Get actual position </button>
+    <button class="btn" on:click={() => (Map.getPosition = true)}> Get actual position </button>
     <Geolocation
             getPosition={Map.getPosition}
             bind:coords

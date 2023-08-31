@@ -29,10 +29,9 @@
 <h1>Profile</h1>
 <p>Hello {name} you are logged in with the email {email}</p>
 
-<div class="container mt-3 align-self-auto">
-    <a class="btn col-md-4 p-5" href="map">Click here to see stations nearby your position.</a>
+<div class="container">
+    <a class="btn" href="map">See stations nearby your position.</a>
     <br/>
-    <a class="btn col-md-4 p-5" href="scanner">Click here to scan the QR code of a charging station.</a>
+    <br/>
+    <a class="btn" href="scanner">Scan the QR code of a charging station.</a>
 </div>
-
-
