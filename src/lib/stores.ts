@@ -47,7 +47,7 @@ export async function reserve(requestBody: { userId: string, chargingStationId: 
     });
 
     if (response.ok) {
-        alert('Charging stations reserved.');
+        alert('Charging station reserved.');
         window.location.assign("/home")
     } else {
         alert('Something went wrong.');
