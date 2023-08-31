@@ -48,7 +48,7 @@
     }
 
     function onScanSuccess(decodedText, decodedResult) {
-        const shouldNavigate = confirm(`Code matched = ${decodedText}. Do you want to navigate to charging page?`);
+        const shouldNavigate = confirm(`Scan successful. Redirecting to charging page.`);
         if (shouldNavigate) {
             stop();
             window.location.assign(`/charging/${decodedText}`);
