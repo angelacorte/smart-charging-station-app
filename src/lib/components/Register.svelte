@@ -1,5 +1,5 @@
 <script>
-    import '../app.css'
+
     import { createEventDispatcher } from 'svelte';
 
     // Dispatcher for future usage in /index.svelte
