@@ -12,7 +12,7 @@ export async function charge(requestBody: { userId: string, chargingStationId: n
             body: JSON.stringify(requestBody)
         });
         alert(await response.text());
-        if (response.ok) {
+        if (response.status === 200) {
             window.location.assign("/home")
         }
     }catch (err) {
@@ -46,8 +46,11 @@ export async function reserve(requestBody: { userId: string, chargingStationId: 
             },
             body: JSON.stringify(requestBody)
         });
+        /*console.log("resp ", await response)
+        console.log("text ", await response.text())
+        console.log("json ", await response.json())*/
         alert(await response.text());
-        if (response.ok) {
+        if (response.status === 200) {
             window.location.assign("/home")
         }
     }catch (err) {
