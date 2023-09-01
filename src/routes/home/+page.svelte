@@ -16,11 +16,30 @@
 
 <script>
     import { onMount } from 'svelte';
-    import {fetchStations, Stations} from "$lib/stores.ts";
+    import {fetchStations, removeFavourite, Stations} from "$lib/stores.ts";
+    import IoMdRemoveCircle from 'svelte-icons/io/IoMdRemoveCircle.svelte'
 
     let name;
     export let favStations = []
 
+
+    export async function removeFromFavourites(stationId) {
+        let user = JSON.parse(window.localStorage.getItem("user"))
+        let res = await removeFavourite({
+            userId: user._id,
+            chargingStationId: stationId
+        })
+        if (res) {
+            user.chargingStations = user.chargingStations.filter(id => id !== stationId);
+            window.localStorage.setItem("user", JSON.stringify(user))
+            await updateFavourites()
+        }
+    }
+    async function updateFavourites(){
+        const { props } = await load({}); // Passa un oggetto vuoto poiché load non richiede parametri
+        favStations = props.stations;
+        await bindStations()
+    }
     export async function bindStations(){
         await fetchStations()
         favStations.forEach((elem, index) => {
@@ -50,14 +69,13 @@
 </div>
 
 
-<h3>Charging stations of interest</h3>
+<h3>Charging stations of interest:</h3>
 {#if favStations.length > 0}
     <ul>
         {#each favStations as s}
-            <li>
-                <a style="color: #397367"  href="charge/{s.id}">{s.name} {s.provider} is {s.state}</a>
-                <br/>
-                <br/>
+            <li style="display: flex; align-items: center;">
+                <p style="color: darkred; width: 32px; height: 32px" on:click={removeFromFavourites(s.id)}><IoMdRemoveCircle></IoMdRemoveCircle></p>
+                <a style="color: #397367; flex: 1;" href="/charging/{s.id}">{s.name} {s.provider} is {s.state}</a>
             </li>
         {/each}
     </ul>
