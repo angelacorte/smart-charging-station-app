@@ -5,7 +5,7 @@
 
     // Redirection to /profile
     function redirectToHome() {
-    window.location.assign('/home')
+        window.location.assign('/home')
     }
 </script>
 
