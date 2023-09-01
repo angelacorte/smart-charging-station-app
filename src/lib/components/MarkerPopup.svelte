@@ -25,10 +25,7 @@
             userId: user._id,
             chargingStationId: station.id
         })
-        console.log("res ", res)
-
         if (res){
-            console.log("yes")
             user.chargingStations.push(station.id)
             window.localStorage.setItem("user", JSON.stringify(user))
             await updateFavourites()
@@ -41,9 +38,7 @@
             userId: user._id,
             chargingStationId: station.id
         })
-        console.log("res ", res)
         if (res) {
-            console.log("yes")
             user.chargingStations = user.chargingStations.filter(id => id !== station.id);
             window.localStorage.setItem("user", JSON.stringify(user))
             await updateFavourites()
