@@ -12,7 +12,6 @@
             }
         };
     }
-
 </script>
 
 <script>
@@ -20,20 +19,23 @@
     import {fetchStations, Stations} from "$lib/stores.ts";
 
     let name;
-    let stations = []
+    export let favStations = []
+
+    export async function bindStations(){
+        await fetchStations()
+        favStations.forEach((elem, index) => {
+            favStations[index] = $Stations.find(station => {
+                return station.id === elem
+            });
+        })
+    }
 
     onMount(async () => {
         await fetchStations()
         const { props } = await load({}); // Passa un oggetto vuoto poiché load non richiede parametri
-        console.log("props ", props)
         name = props.name;
-        stations = props.stations;
-        stations.forEach((elem, index) => {
-            stations[index] = $Stations.find(station => {
-                return station.id === elem
-            });
-        })
-        console.log("stations ", stations)
+        favStations = props.stations;
+        await bindStations()
     });
 </script>
 
@@ -49,9 +51,9 @@
 
 
 <h3>Charging stations of interest</h3>
-{#if stations.length > 0}
+{#if favStations.length > 0}
     <ul>
-        {#each stations as s}
+        {#each favStations as s}
             <li>
                 <a style="color: #397367"  href="charge/{s.id}">{s.name} {s.provider} is {s.state}</a>
                 <br/>

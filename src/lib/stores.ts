@@ -1,10 +1,15 @@
 import {writable} from 'svelte/store'
+import {createEventDispatcher} from "svelte";
 
-const SERVER_URL = 'http://localhost:8080';
+
+const AKKA_SERVER = 'http://localhost:8080';
+const EXPRESS_SERVER = 'http://localhost:5050';
+// const dispatch = createEventDispatcher();
 export const Stations = writable([])
+export const FavouriteStations = writable([])
 export async function charge(requestBody: { userId: string, chargingStationId: number}){
     try{
-        const response = await fetch(SERVER_URL + '/charge', {
+        const response = await fetch(AKKA_SERVER + '/charge', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -22,7 +27,7 @@ export async function charge(requestBody: { userId: string, chargingStationId: n
 }
 
 export async function fetchStations(){
-    const res = await fetch(SERVER_URL + `/chargingstations`)
+    const res = await fetch(AKKA_SERVER + `/chargingstations`)
     const data = await res.json()
     const newStations = data.map((d: { id: number, name: string, position: {latitude: number, longitude: number}, provider: string, state: string, voltage: number }) => {
         return {
@@ -39,16 +44,13 @@ export async function fetchStations(){
 
 export async function reserve(requestBody: { userId: string, chargingStationId: number}){
     try{
-        let response = await fetch(SERVER_URL + '/reserve-station', {
+        let response = await fetch(AKKA_SERVER + '/reserve-station', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(requestBody)
         });
-        /*console.log("resp ", await response)
-        console.log("text ", await response.text())
-        console.log("json ", await response.json())*/
         alert(await response.text());
         if (response.status === 200) {
             window.location.assign("/home")
@@ -64,4 +66,42 @@ export const ChargingStationStatus = {
     CHARGING: "CHARGING",
     RESERVED: "RESERVED",
     UNAVAILABLE: "UNAVAILABLE"
+}
+
+export async function addFavourite(requestBody: { userId: string, chargingStationId: number }) {
+    try {
+        let response = await fetch(EXPRESS_SERVER + '/addFavourite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody)
+        });
+        if (response.status === 200) {
+            document.dispatchEvent(new Event("updateFavourites"))
+            return response.ok;
+        }
+    } catch (err) {
+        console.log(err);
+        alert('An error occured ' + err)
+    }
+}
+
+export async function removeFavourite(requestBody: { userId: string, chargingStationId: number }) {
+    try {
+        let response = await fetch(EXPRESS_SERVER + '/removeFavourite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody)
+        });
+        if (response.status === 200) {
+            document.dispatchEvent(new Event("updateFavourites"))
+            return response.ok;
+        }
+    } catch (err) {
+        console.log(err);
+        alert('An error occured ' + err)
+    }
 }
