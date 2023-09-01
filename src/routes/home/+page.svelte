@@ -53,7 +53,7 @@
     <ul>
         {#each stations as s}
             <li>
-                <a style="color: #397367"  href="charge/{s.id}">{s.name} {s.provider}</a>
+                <a style="color: #397367"  href="charge/{s.id}">{s.name} {s.provider} is {s.state}</a>
                 <br/>
                 <br/>
             </li>
