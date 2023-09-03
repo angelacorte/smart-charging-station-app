@@ -75,7 +75,7 @@
         {#each favStations as s}
             <li style="display: flex; align-items: center;">
                 <p style="color: darkred; width: 32px; height: 32px" on:click={removeFromFavourites(s.id)}><IoMdRemoveCircle></IoMdRemoveCircle></p>
-                <a style="color: #397367; flex: 1;" href="/charging/{s.id}">{s.name} {s.provider} is {s.state}</a>
+                <a style="color: #397367; flex: 1;" href="/reserve/{s.id}">{s.name} {s.provider} is {s.state}</a>
             </li>
         {/each}
     </ul>
